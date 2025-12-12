@@ -1,99 +1,155 @@
-/* ============================================================
-   1. MOBILE NAV TOGGLE + OVERLAY DIMMING
-   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.getElementById('dynamic-nav');
+  const headerHeight = header ? header.offsetHeight : 90;
 
-const hamburger = document.querySelector(".hamburger-menu");
-const navLinks = document.querySelector(".nav-links-center");
-const overlay = document.querySelector(".menu-overlay");
+  const navLinks = document.querySelectorAll('.nav-links-center a');
+  const logoLink = document.querySelector('.logo-link');
+  const hamburger = document.querySelector('.hamburger-menu');
+  const navLinksContainer = document.querySelector('.nav-links-center');
+  const overlay = document.querySelector('.menu-overlay');
 
-hamburger?.addEventListener("click", () => {
-    const expanded = hamburger.getAttribute("aria-expanded") === "true";
+  /* -------------------------
+   * Smooth scroll with offset
+   * ------------------------- */
+  function smoothScrollTo(targetId) {
+    const target = document.querySelector(targetId);
+    if (!target) return;
 
-    // toggle menu
-    hamburger.setAttribute("aria-expanded", !expanded);
-    navLinks.classList.toggle("active");
-    overlay.classList.toggle("active");
-});
+    const rect = target.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-// clicking overlay closes menu
-overlay?.addEventListener("click", () => {
-    hamburger.setAttribute("aria-expanded", false);
-    navLinks.classList.remove("active");
-    overlay.classList.remove("active");
-});
+    // Scroll so the section is a bit *below* the header, not jammed under it
+    const offset = rect.top + scrollTop - headerHeight - 40; // 40px extra breathing room
 
+    window.scrollTo({
+      top: Math.max(offset, 0),
+      behavior: 'smooth',
+    });
+  }
 
-/* ============================================================
-   2. SMOOTH SCROLL FOR NAVIGATION
-   ============================================================ */
+  // Nav links click
+  navLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
 
-document.querySelectorAll('.nav-links-center a').forEach(link => {
     link.addEventListener('click', (e) => {
-        // close mobile menu when clicked
-        hamburger.setAttribute("aria-expanded", false);
-        navLinks.classList.remove("active");
-        overlay.classList.remove("active");
+      e.preventDefault();
+      smoothScrollTo(href);
 
-        const targetID = link.getAttribute("href");
-        if (targetID.startsWith("#")) {
-            e.preventDefault();
-            document.querySelector(targetID)?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+      // Close mobile menu if open
+      if (window.innerWidth <= 900 && navLinksContainer) {
+        navLinksContainer.classList.remove('active');
+        overlay && overlay.classList.remove('active');
+        hamburger && hamburger.setAttribute('aria-expanded', 'false');
+      }
     });
-});
+  });
 
-
-/* ============================================================
-   3. SCROLL-SPY: Highlight active section in navbar
-   ============================================================ */
-
-const sections = document.querySelectorAll("section");
-const navItems = document.querySelectorAll(".nav-links-center a");
-
-function updateActiveNav() {
-    let scrollPos = window.scrollY + 150; // offset for fixed navbar
-
-    sections.forEach(section => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        const id = section.getAttribute("id");
-
-        if (scrollPos >= top && scrollPos < top + height) {
-            navItems.forEach(item => item.classList.remove("active"));
-
-            const newActive = document.querySelector(
-                `.nav-links-center a[href="#${id}"]`
-            );
-            newActive?.classList.add("active");
-        }
+  // Logo click
+  if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+      const href = logoLink.getAttribute('href') || '#hero';
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        smoothScrollTo(href);
+      }
     });
-}
+  }
 
-window.addEventListener("scroll", updateActiveNav);
-updateActiveNav(); // initial state on load
+  /* -------------------------
+   * Hamburger + overlay
+   * ------------------------- */
+  if (hamburger && navLinksContainer) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinksContainer.classList.toggle('active');
+      if (overlay) overlay.classList.toggle('active', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
 
+  if (overlay && navLinksContainer) {
+    overlay.addEventListener('click', () => {
+      navLinksContainer.classList.remove('active');
+      overlay.classList.remove('active');
+      hamburger && hamburger.setAttribute('aria-expanded', 'false');
+    });
+  }
 
-/* ============================================================
-   4. SKILLS CAROUSEL — Smooth left/right scrolling
-   ============================================================ */
+  /* -------------------------
+   * Scrollspy (active pill)
+   * ------------------------- */
 
-document.addEventListener("DOMContentLoaded", () => {
-    const track = document.getElementById("skillsTrack");
-    const leftBtn = document.querySelector(".skills-arrow-left");
-    const rightBtn = document.querySelector(".skills-arrow-right");
+  const sections = document.querySelectorAll('.page-section');
+  const sectionIdToNavLink = {};
 
-    if (!track || !leftBtn || !rightBtn) return;
+  navLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      sectionIdToNavLink[href.substring(1)] = link;
+    }
+  });
 
-    const SCROLL_AMOUNT = 220; // px per arrow tap
+  // Observer fires when ~40% of a section is in the "middle band" of the viewport
+  const observerOptions = {
+    root: null,
+    threshold: 0.4,
+    rootMargin: '-15% 0px -45% 0px', // ignore very top & very bottom of viewport
+  };
 
-    leftBtn.addEventListener("click", () => {
-        track.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.id;
+      if (!id || !(id in sectionIdToNavLink)) return;
+
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => link.classList.remove('active'));
+        sectionIdToNavLink[id].classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => observer.observe(section));
+
+  // On load (e.g., if someone refreshes mid-page), pick the section that is MOST visible
+  window.addEventListener('load', () => {
+    let bestSection = null;
+    let bestScore = 0;
+
+    sections.forEach((sec) => {
+      const rect = sec.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+
+      const visibleHeight = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      const ratio = Math.max(0, visibleHeight) / Math.max(rect.height, 1);
+
+      if (ratio > bestScore) {
+        bestScore = ratio;
+        bestSection = sec;
+      }
     });
 
-    rightBtn.addEventListener("click", () => {
-        track.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+    if (bestSection && sectionIdToNavLink[bestSection.id]) {
+      navLinks.forEach((link) => link.classList.remove('active'));
+      sectionIdToNavLink[bestSection.id].classList.add('active');
+    }
+  });
+
+  /* -------------------------
+   * Skills carousel
+   * ------------------------- */
+  const skillsTrack = document.getElementById('skillsTrack');
+  const leftArrow = document.querySelector('.skills-arrow-left');
+  const rightArrow = document.querySelector('.skills-arrow-right');
+
+  if (skillsTrack && leftArrow && rightArrow) {
+    const scrollAmount = 220; // px per click
+
+    leftArrow.addEventListener('click', () => {
+      skillsTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     });
+
+    rightArrow.addEventListener('click', () => {
+      skillsTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  }
 });
