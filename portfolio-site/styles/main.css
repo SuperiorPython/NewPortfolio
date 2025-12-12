@@ -1020,8 +1020,8 @@ body {
 
 /* Right preview image */
 .project-preview {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
 
     border-radius: 18px;
     overflow: hidden;
