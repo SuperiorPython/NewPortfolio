@@ -1104,5 +1104,39 @@ body {
 }
 }
 
+/* Incoming experience wrapper */
+.incoming-experience {
+    border-radius: 22px;
+  border: 3px dashed rgba(56, 189, 248, 1);
+  background: rgba(6, 15, 35, 0.75);
+  box-shadow: 0 0 28px rgba(14, 165, 233, 0.25);
+}
+/* Logo variant */
+.incoming-logo {
+  background: radial-gradient(
+    circle at top,
+    rgba(56,189,248,0.35),
+    rgba(15,23,42,1)
+  );
+}
 
+/* Short explanatory note */
+.incoming-note {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  color: #cbd5f5;
+  line-height: 1.6;
+}
+.incoming-role {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 8px;
+}
 
+.incoming-meta {
+    font-size: 1.05rem;
+    color: #e5e7eb;
+    opacity: 0.9;
+}
