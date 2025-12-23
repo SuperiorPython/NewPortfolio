@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
    * Scrollspy (active pill)
    * ------------------------- */
 
-  const sections = document.querySelectorAll('.page-section');
+  // Observe real sections that have IDs
+  const sections = document.querySelectorAll('section[id]');
   const sectionIdToNavLink = {};
 
   navLinks.forEach((link) => {
@@ -89,29 +90,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Observer fires when ~40% of a section is in the "middle band" of the viewport
+  // Build a threshold list so we get smoother + more reliable ratio updates
+  const thresholds = Array.from({ length: 21 }, (_, i) => i / 20);
+
   const observerOptions = {
     root: null,
-    threshold: 0.4,
-    rootMargin: '-15% 0px -45% 0px', // ignore very top & very bottom of viewport
+    // account for fixed header; also require "most of the section" to be in view
+    rootMargin: `-${headerHeight + 20}px 0px -55% 0px`,
+    threshold: thresholds,
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const id = entry.target.id;
-      if (!id || !(id in sectionIdToNavLink)) return;
+  let currentActiveId = null;
 
-      if (entry.isIntersecting) {
-        navLinks.forEach((link) => link.classList.remove('active'));
-        sectionIdToNavLink[id].classList.add('active');
+  const observer = new IntersectionObserver((entries) => {
+    // choose the section with the highest intersection ratio
+    let bestEntry = null;
+
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
+        bestEntry = entry;
       }
-    });
+    }
+
+    if (!bestEntry) return;
+
+    const id = bestEntry.target.id;
+    if (!id || !(id in sectionIdToNavLink)) return;
+    if (id === currentActiveId) return;
+
+    currentActiveId = id;
+
+    navLinks.forEach((link) => link.classList.remove('active'));
+    sectionIdToNavLink[id].classList.add('active');
   }, observerOptions);
 
   sections.forEach((section) => observer.observe(section));
 
-  // On load (e.g., if someone refreshes mid-page), pick the section that is MOST visible
-  window.addEventListener('load', () => {
+  // Optional: on refresh mid-page, set the best visible section
+  function setActiveFromViewport() {
     let bestSection = null;
     let bestScore = 0;
 
@@ -119,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = sec.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
 
-      const visibleHeight = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
-      const ratio = Math.max(0, visibleHeight) / Math.max(rect.height, 1);
+      const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, headerHeight);
+      const ratio = Math.max(0, visible) / Math.max(rect.height, 1);
 
       if (ratio > bestScore) {
         bestScore = ratio;
@@ -129,11 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (bestSection && sectionIdToNavLink[bestSection.id]) {
-      navLinks.forEach((link) => link.classList.remove('active'));
+      navLinks.forEach((l) => l.classList.remove('active'));
       sectionIdToNavLink[bestSection.id].classList.add('active');
+      currentActiveId = bestSection.id;
     }
-  });
+  }
 
+  window.addEventListener('load', setActiveFromViewport);
+  window.addEventListener('resize', setActiveFromViewport);
   /* -------------------------
    * Skills carousel
    * ------------------------- */
