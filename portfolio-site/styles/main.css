@@ -1103,6 +1103,10 @@ body {
     object-fit: cover;
 }
 }
+.project-row {
+  text-decoration: none;
+  color: inherit;
+}
 
 /* Incoming experience wrapper */
 .incoming-experience {

@@ -172,4 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
       skillsTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     });
   }
+  document.querySelectorAll('.project-row.clickable').forEach(card => {
+  card.addEventListener('click', () => {
+    window.location.href = card.dataset.href;
+  });
+});
 });
