@@ -2,7 +2,7 @@
  * 1. Global Base & Fixed Background
  * ---------------------------------- */
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body, html {
@@ -11,17 +11,8 @@ body, html {
     font-family: 'Inter', system-ui, sans-serif;
     color: #f2f2f2;
     min-height: 30vh;
-}
-
-body {
-    background-image: url('../assets/main/nasa-image.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    background-color: #000;
-
-    /* Space for fixed header */
-    padding-top: 80px; /* tweak based on header/logo size */
+    background: #000 url('../assets/main/nasa-image.jpg') center / cover fixed;
+    padding-top: 80px; /* Space for fixed header */
 }
 
 /* Content area */
@@ -34,31 +25,21 @@ body {
 /* ----------------------------------
  * 2. Content Sections
  * ---------------------------------- */
-
 .page-section {
     min-height: 100vh;
 }
+
 .hero-card {
     padding: 48px 56px;
     border-radius: 26px;
-
-    background: radial-gradient(
-        circle at top,
-        rgba(56, 189, 248, 0.18),
-        rgba(5, 10, 25, 0.92)
-    );
-
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), rgba(5, 10, 25, 0.92));
     border: 1px solid rgba(148, 163, 184, 0.35);
-    box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.8),
-        0 0 40px rgba(14, 165, 233, 0.35);
-
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 165, 233, 0.35);
     backdrop-filter: blur(14px);
     text-align: center;
     max-width: 720px;
     margin: 0 auto;
 }
-
 
 .hero-section {
     display: flex;
@@ -67,10 +48,13 @@ body {
     text-align: center;
 }
 
+.hero-section h1, .hero-section h2 {
+    letter-spacing: 0.12em;
+}
+
 .hero-section h1 {
     font-family: 'Rajdhani', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
     font-size: 3rem;
     margin-bottom: 0.5rem;
 }
@@ -78,7 +62,6 @@ body {
 .hero-section h2 {
     font-family: 'Space Mono', monospace;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 300;
@@ -87,33 +70,27 @@ body {
 /* ----------------------------------
  * 3. FIXED HEADER BAR
  * ---------------------------------- */
-
 #dynamic-nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
     height: 90px;
     padding: 0;
-
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
 }
 
 /* ----------------------------------
  * 3A. LOGO: PINNED TO VIEWPORT CORNER
  * ---------------------------------- */
-
 .logo-link {
-    position: fixed;          /* pinned to screen, not header content */
+    position: fixed; /* pinned to screen */
     left: 20px;
-    top: 45px;                /* half of 90px header height */
+    top: 45px; /* half of 90px header height */
     transform: translateY(-50%);
-    z-index: 1001;            /* just above header bar */
+    z-index: 1001;
 }
 
 .logo {
@@ -125,32 +102,24 @@ body {
 /* ----------------------------------
  * 3B. HEADER CONTENT CONTAINER
  * ---------------------------------- */
-
 .header-constraint {
     max-width: 1200px;
     width: 100%;
     height: 100%;
     margin: 0 auto;
-
-    /* left padding so centered nav doesn't collide with logo */
-    padding: 0 30px 0 80px; /* top right bottom left */
-
+    padding: 0 30px 0 80px; /* left padding for centered nav */
     display: flex;
     align-items: center;
     justify-content: flex-end; /* hamburger on the right */
-
-    position: relative;        /* needed for nav absolute centering */
 }
 
 /* ----------------------------------
  * 4. NAV LINKS (CENTERED, PILL STYLE)
  * ---------------------------------- */
-
 .nav-links-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-
     display: flex;
     align-items: center;
     gap: 2.5rem;
@@ -160,35 +129,17 @@ body {
 .nav-links-center a {
     font-family: 'Rajdhani', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    position: relative;
     text-decoration: none;
     color: #e6e6e6;
-
-    /* Bigger pill */
     padding: 12px 26px;
     border-radius: 999px;
     background: rgba(15, 15, 15, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.12);
-
     font-size: 0.95rem;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
-
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.15s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-/* no underline effect (pills are the highlight) */
-.nav-links-center a::after {
-    content: none;
-}
-
-/* Hover: pill lights up */
 .nav-links-center a:hover {
     color: #ffffff;
     background-color: rgba(0, 107, 246, 0.28);
@@ -197,7 +148,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Active/current section */
 .nav-links-center a.active {
     color: #ffffff;
     background-color: rgba(0, 107, 246, 0.45);
@@ -208,41 +158,34 @@ body {
 /* ----------------------------------
  * 5. HAMBURGER (RIGHT SIDE)
  * ---------------------------------- */
-
 .hamburger-menu {
     font-size: 1.7rem;
     cursor: pointer;
     color: #fff;
     flex-shrink: 0;
-    display: none;             /* desktop hidden */
-
+    display: none; /* desktop hidden */
     position: absolute;
     right: 30px;
     top: 50%;
     transform: translateY(-50%);
-
-    z-index: 1002;             /* above header bar & logo */
+    z-index: 1002; /* above header bar & logo */
 }
 
 /* ----------------------------------
  * 6. DIM BACKGROUND OVERLAY FOR MOBILE MENU
  * ---------------------------------- */
-
 .menu-overlay {
     position: fixed;
-    top: 90px;                            /* start under the header */
+    top: 90px; /* start under the header */
     left: 0;
     width: 100%;
-    height: calc(100% - 90px);           /* fill rest of screen */
-    background: rgba(0, 0, 0, 0.75);     /* dimness */
+    height: calc(100% - 90px);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.25s ease, visibility 0.25s ease;
-
-    z-index: 500;                        /* BELOW header & pills */
+    z-index: 500; /* BELOW header & pills */
 }
 
 .menu-overlay.active {
@@ -253,72 +196,44 @@ body {
 /* ----------------------------------
  * 7. RESPONSIVE MENU (MOBILE)
  * ---------------------------------- */
-
 @media (max-width: 900px) {
-    /* Override desktop centering when hidden */
     .nav-links-center {
         left: 0;
         transform: translateY(-10px);
-
         display: none;
         opacity: 0;
         transition: opacity 0.25s ease, transform 0.25s ease;
     }
-
     .hamburger-menu {
         display: block;
     }
-
-    /* Fullscreen panel under header (but above overlay) */
     .nav-links-center.active {
         display: flex;
         flex-direction: column;
         gap: 2rem;
-
         position: fixed;
         left: 0;
         top: 500px;
         width: 100%;
         height: calc(100% - 90px);
-
-        background-color: transparent;
-        /* sits inside #dynamic-nav (z=1000), which is above overlay */
-
         justify-content: center;
         align-items: center;
-
         opacity: 1;
         transform: translateY(0);
+        background-color: transparent;
     }
-
     .nav-links-center.active a {
         padding: 20px 32px;
         font-size: 1.5rem;
-        border-radius: 999px;
-
-        /* bright, high-contrast pill */
         background: rgba(15, 23, 42, 0.98);
-        border: 1px solid rgba(148, 163, 184, 0.95);
         color: #f9fafb;
         box-shadow: 0 0 30px rgba(37, 99, 235, 0.75);
-    }
-    .about-flex {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .about-photo {
-        width: 160px;
-        height: 160px;
     }
 }
 
 /* ----------------------------------
  * 8. SECTION PANELS (TRANSPARENT BOXES)
  * ---------------------------------- */
-
-/* Generic box style for non-hero sections */
-/* Glassy panel used by both About + Experience */
 .section-panel {
     max-width: 1100px;
     margin: 30px auto;
@@ -326,32 +241,19 @@ body {
     background: rgba(5, 10, 25, 0.78);
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow:
-        0 24px 50px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.25);
     backdrop-filter: blur(14px);
 }
 
-
 .section-panel h2 {
     font-family: 'Rajdhani', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-top: 0;
-    margin-bottom: 16px;
     font-size: 2rem;
+    margin: 0 0 16px;
 }
 
-/* If you add paragraphs/lists later */
-.section-panel p {
+/* Text styles for paragraphs and lists */
+.section-panel p, .section-panel ul, .section-panel li {
     font-family: 'Space Mono', monospace;
-    font-weight: 400;
-    font-size: 1.05rem;
-    line-height: 1.65;
-    color: #eaeaea;
-}
-.section-panel ul,
-.section-panel li {
     font-size: 1rem;
     line-height: 1.6;
     color: #e5e7eb;
@@ -362,14 +264,14 @@ body {
     display: flex;
     align-items: center;
     gap: 40px;
-    padding: 0;           /* no internal padding */
-    margin-top: 30px;     /* similar to .exp-divider gap */
+    margin-top: 30px;
 }
 
 /* ABOUT IMAGE */
 .about-image-wrapper {
     flex-shrink: 0;
 }
+
 .about-title {
     font-family: 'Rajdhani', sans-serif;
     font-size: 2.2rem;
@@ -378,6 +280,7 @@ body {
     letter-spacing: 0.18em;
     margin: 0 0 10px;
 }
+
 .abs-divider {
     width: 200px;
     height: 2px;
@@ -397,7 +300,6 @@ body {
 /* ABOUT TEXT */
 .about-text {
     flex: 1;
-    text-align: left; /* optional; remove if you want left-aligned text */
 }
 
 .about-text h2 {
@@ -405,6 +307,7 @@ body {
     font-size: 2.4rem;
     margin-bottom: 20px;
 }
+
 .about-resume-wrap {
     margin-top: 24px;
     display: flex;
@@ -418,14 +321,11 @@ body {
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-
     background: #0ea5e9;
     color: #020617;
     text-decoration: none;
-
     border-radius: 999px;
     box-shadow: 0 0 22px rgba(14,165,233,0.7);
-
     transition: 0.2s ease;
 }
 
@@ -434,6 +334,7 @@ body {
     box-shadow: 0 0 28px rgba(56,189,248,0.7);
     background: #38bdf8;
 }
+
 .about-side {
     display: flex;
     flex-direction: column;
@@ -449,7 +350,6 @@ body {
 }
 
 /* ===== ABOUT → SKILLS CAROUSEL ===== */
-
 .about-skills {
     margin-top: 40px;
     text-align: center;
@@ -503,17 +403,14 @@ body {
 .skill-icon-card {
     scroll-snap-align: center;
     flex: 0 0 160px;
-
     background: rgba(11, 18, 40, 0.85);
     border: 1px solid rgba(148, 163, 184, 0.45);
     border-radius: 18px;
     padding: 16px 14px;
-
     display: flex;
-    flex-direction: column;        /* ⬅️ stack icon above text */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-
     box-shadow: 0 0 18px rgba(14,165,233,0.28);
     transition: 0.22s ease;
 }
@@ -551,7 +448,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
     box-shadow: 0 0 16px rgba(15,23,42,0.9);
     cursor: pointer;
     transition: 0.18s ease;
@@ -562,36 +458,15 @@ body {
     box-shadow: 0 0 24px rgba(14,165,233,0.7);
 }
 
-@media (max-width: 900px) {
-    .skills-carousel {
-        gap: 8px;
-    }
-
-    .skills-arrow {
-        width: 30px;
-        height: 70px;
-        font-size: 0.9rem;   /* slightly smaller on mobile */
-    }
-
-    .skills-track {
-        padding-inline: 2px;
-    }
-
-    .skill-icon-card {
-        flex: 0 0 150px;
-    }
-}
-
-
-
-/* EXPERIENCE SECTION */
-
+/* ----------------------------------
+ * EXPERIENCE SECTION
+ * ---------------------------------- */
 .experience-panel {
     max-width: 1100px;
     margin: 30px auto;
 }
 
-/* Title and divider – same energy as About header */
+/* Title and divider */
 .exp-title {
     font-family: 'Rajdhani', sans-serif;
     font-size: 2.2rem;
@@ -616,7 +491,6 @@ body {
     margin-bottom: 32px;
 }
 
-/* Logo card */
 .exp-logo-box {
     width: 250px;
     height: 250px;
@@ -641,22 +515,25 @@ body {
     flex: 1;
 }
 
+.exp-role, .exp-meta {
+    font-family: 'Space Mono', monospace;
+}
+
 /* Role + meta */
 .exp-role {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.2rem;
-    color: #e5e7eb;
-    margin: 0 0 4px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 8px;
 }
 
 .exp-meta {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    color: #9ca3af;
-    margin: 0 0 10px;
+    font-size: 1.05rem;
+    color: #e7e7eb;
+    opacity: 0.9;
 }
 
-/* Bullets, properly aligned */
+/* Bullets */
 .exp-bullets {
     list-style: none;
     padding-left: 0;
@@ -669,7 +546,7 @@ body {
 
 .exp-bullets li {
     position: relative;
-    padding-left: 20px;     /* space for bullet */
+    padding-left: 20px; /* space for bullet */
     margin-bottom: 8px;
 }
 
@@ -683,77 +560,38 @@ body {
     line-height: 1;
 }
 
-
 /* ===== EXPERIENCE → MOBILE CARD LAYOUT ===== */
 @media (max-width: 900px) {
-
-  .experience-panel {
-      padding: 24px 18px;
-  }
-
-  /* Full card for each experience */
-  .experience-item {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      margin-bottom: 28px;
-      padding: 0;
-
-      background: rgba(11, 18, 40, 0.96);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
-
-      overflow: hidden; /* clip image to rounded corners */
-  }
-
-  /* Logo block behaves like the header image of the card */
-  .exp-logo-box {
-      width: 100%;
-      max-width: none;
-      height: 160px;
-      margin: 0;
-
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-
-      background: radial-gradient(circle at 30% 0%, rgba(56,189,248,0.25), rgba(15,23,42,1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-
-  .exp-logo {
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
-  }
-
-  /* Text content lives under the “image” in the same card */
-  .exp-content {
-      width: 100%;
-      padding: 18px 18px 20px;
-      text-align: left;
-  }
-
-  .exp-role {
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-  }
-
-  .exp-meta {
-      font-size: 0.85rem;
-      margin-bottom: 10px;
-  }
-
-  .exp-bullets {
-      margin-top: 8px;
-  }
+    .experience-panel {
+        padding: 24px 18px;
+    }
+    .experience-item {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 28px;
+        padding: 0;
+        background: rgba(11, 18, 40, 0.96);
+        border-radius: 24px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+    }
+    .exp-logo-box {
+        width: 100%;
+        height: 160px;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+    .exp-content {
+        padding: 18px 18px 20px;
+        text-align: left;
+    }
 }
 
-
-/* Title */
+/* ----------------------------------
+ * CONTACT SECTION
+ * ---------------------------------- */
 .contact-title {
     text-align: center;
     font-family: 'Rajdhani', sans-serif;
@@ -770,13 +608,11 @@ body {
     background: #0ea5e9;
 }
 
-/* Grid of contact icons */
 .contact-grid {
     display: flex;
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
-
 }
 
 /* Icon cards */
@@ -787,20 +623,16 @@ body {
     background: rgba(11, 18, 40, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.35);
     box-shadow: 0 0 20px rgba(14,165,233,0.25);
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     text-decoration: none;
     color: #e5e7eb;
     font-family: 'Space Mono', monospace;
-
     transition: 0.25s ease;
 }
 
-/* Icons inside cards */
 .contact-icon {
     width: 75px;
     height: 75px;
@@ -816,18 +648,10 @@ body {
     background: rgba(15, 23, 42, 0.92);
 }
 
-/* Responsive stacking */
-@media (max-width: 900px) {
-    .contact-card {
-        width: 140px;
-        height: 140px;
-    }
-}
 .contact-subtitle {
     max-width: 640px;
     margin: 0 auto 36px;
     text-align: center;
-
     font-family: 'Space Mono', monospace;
     font-size: 0.95rem;
     line-height: 1.65;
@@ -841,55 +665,33 @@ body {
     letter-spacing: 0.12em;
     text-transform: uppercase;
 }
+
 .contact-quote {
     margin-top: 48px;
     text-align: center;
-
     font-family: 'Space Mono', monospace;
     font-size: 1rem;
     letter-spacing: 0.04em;
-
     color: rgba(229, 231, 235, 0.85);
-
     opacity: 0.9;
 }
 
-/* Author styling */
 .contact-quote-author {
     display: block;
     margin-top: 10px;
-
     font-size: 0.85rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-
     color: rgba(56, 189, 248, 0.8);
 }
-.contact-quote::before {
-    content: "";
-    display: block;
-    width: 120px;
-    height: 2px;
-    margin: 0 auto 28px;
 
-    background: linear-gradient(
-        to right,
-        transparent,
-        rgba(56,189,248,0.9),
-        transparent
-    );
-}
-/* =======================
+/* ----------------------------------
  * FOOTER
- * ======================= */
-
+ * ---------------------------------- */
 .site-footer {
     border-top: 1px solid rgba(148, 163, 184, 0.35);
-    background:
-        radial-gradient(circle at 50% 0%, rgba(56,189,248,0.12), transparent 55%),
-        rgba(3, 7, 18, 0.96);
+    background: radial-gradient(circle at 50% 0%, rgba(56,189,248,0.12), transparent 55%), rgba(3, 7, 18, 0.96);
     padding: 22px 0 28px;
-    margin-top: 0; /* don't force extra gap */
 }
 
 .footer-inner {
@@ -911,10 +713,9 @@ body {
     opacity: 0.8;
 }
 
-/* =======================
+/* ----------------------------------
  * PROJECTS (VERTICAL PANELS)
- * ======================= */
-
+ * ---------------------------------- */
 .projects-title {
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
@@ -936,12 +737,10 @@ body {
     gap: 36px;
     margin-bottom: 40px;
     padding: 36px;
-
     border-radius: 26px;
     background: rgba(11, 18, 40, 0.92);
     border: 1px solid rgba(148, 163, 184, 0.35);
     box-shadow: 0 0 30px rgba(14,165,233,0.25);
-
     transition: 0.25s ease;
 }
 
@@ -984,7 +783,6 @@ body {
     font-size: 0.7rem;
     padding: 6px 12px;
     border-radius: 999px;
-
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid rgba(148, 163, 184, 0.4);
     color: #e5e7eb;
@@ -992,62 +790,44 @@ body {
 
 /* Action buttons */
 .project-actions {
-  display: flex;
-  gap: 14px;
-  margin-top: 16px;
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
 }
 
 .project-btn {
-  flex: 1;
-  text-align: center;
-
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-
-  padding: 12px 0;
-  border-radius: 999px;
-
-  text-decoration: none;
-  color: #020617;
-
-  background: linear-gradient(
-    135deg,
-    #22d3ee,
-    #3b82f6
-  );
-
-  box-shadow:
-    0 0 18px rgba(34, 211, 238, 0.55),
-    inset 0 0 0 1px rgba(255,255,255,0.35);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    flex: 1;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 0;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #020617;
+    background: linear-gradient(135deg, #22d3ee, #3b82f6);
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.55), inset 0 0 0 1px rgba(255,255,255,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .project-btn:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 28px rgba(34, 211, 238, 0.85),
-    0 0 12px rgba(59, 130, 246, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.85), 0 0 12px rgba(59, 130, 246, 0.6);
 }
 
 /* Right preview image */
 .project-preview {
     width: 300px;
     height: 300px;
-
     border-radius: 18px;
     overflow: hidden;
-
     background: rgba(2, 6, 23, 0.95);
     border: 1px solid rgba(148, 163, 184, 0.35);
     box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
     display: flex;
-    align-items: center;      /* vertical centering */
-    justify-content: center;  /* horizontal centering */
+    align-items: center; /* vertical centering */
+    justify-content: center; /* horizontal centering */
 }
 
 .project-preview img {
@@ -1067,7 +847,6 @@ body {
     letter-spacing: 0.12em;
     padding: 10px 18px;
     border-radius: 999px;
-
     background: rgba(56,189,248,0.18);
     border: 1px solid rgba(56,189,248,0.6);
     color: #93c5fd;
@@ -1078,7 +857,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-family: 'Space Mono', monospace;
     font-size: 0.8rem;
     color: #9ca3af;
@@ -1092,78 +870,52 @@ body {
         padding: 26px;
         gap: 22px;
     }
-
     .project-preview {
         width: 100%;
         height: 100%;
     }
     .project-preview img {
-    width: 75%;
-    height: 75%;
-    object-fit: cover;
-}
-}
-.project-row {
-  text-decoration: none;
-  color: inherit;
+        width: 75%;
+        height: 75%;
+    }
+    .project-row {
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
-/* Incoming experience wrapper */
+/* Incoming and current experience wrappers */
+.incoming-experience, .current-experience {
+    border-radius: 22px;
+    background: rgba(6, 15, 35, 0.75);
+    box-shadow: 0 0 35px rgba(14, 165, 233, 0.25);
+}
+
 .incoming-experience {
-    border-radius: 22px;
-  border: 3px dashed rgba(56, 189, 248, 1);
-  background: rgba(6, 15, 35, 0.75);
-  box-shadow: 0 0 28px rgba(14, 165, 233, 0.25);
-}
-/* Logo variant */
-.incoming-logo {
-  background: radial-gradient(
-    circle at top,
-    rgba(56,189,248,0.35),
-    rgba(15,23,42,1)
-  );
-}
-.incoming-note {
-  margin-top: 10px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.95rem;
-  color: #cbd5f5;
-  line-height: 1.6;
-}
-.incoming-role {
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: #38bdf8;
-    margin-bottom: 8px;
+    border: 3px dashed rgba(56, 189, 248, 1);
 }
 
-.incoming-meta {
-    font-size: 1.05rem;
-    color: #e5e7eb;
-    opacity: 0.9;
-}
-
-/* Incoming experience wrapper */
 .current-experience {
-    border-radius: 22px;
-  border: 3px solid rgba(56, 189, 248, 1);
-  background: rgba(6, 15, 35, 0.75);
-  box-shadow: 0 0 35px rgba(14, 165, 233, 0.25);
+    border: 3px solid rgba(56, 189, 248, 1);
 }
-/* Logo variant */
-.current-logo {
-  background: radial-gradient(
-    circle at top,
-    rgba(56,189,248,0.35),
-    rgba(15,23,42,1)
-  );
+
+.incoming-logo, .current-logo {
+    background: radial-gradient(circle at top, rgba(56,189,248,0.35), rgba(15,23,42,1));
 }
-.current-role {
+
+.incoming-note, .current-role {
+    font-family: 'Space Mono', monospace;
+    color: #cbd5f5;
+}
+
+.incoming-role, .current-role {
     font-size: 1.7rem;
     font-weight: 600;
     color: #38bdf8;
     margin-bottom: 8px;
 }
+
+/* Experience bullets */
 .current-bullets {
     list-style: none;
     padding-left: 0;
@@ -1176,7 +928,7 @@ body {
 
 .current-bullets li {
     position: relative;
-    padding-left: 20px;     /* space for bullet */
+    padding-left: 20px; /* space for bullet */
     margin-bottom: 8px;
 }
 
