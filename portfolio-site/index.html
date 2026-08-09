@@ -127,27 +127,20 @@
       <!-- PROJECT 3 — WIP -->
       <div class="project-row wip">
         <div class="project-info">
-          <h3 class="project-name">DevBoard</h3>
+          <h3 class="project-name">Living Sky</h3>
           <p class="project-desc">
-            A developer-focused dashboard for organizing tools, tracking ideas,
-            and managing personal workflows.
+            A self-updating repo that renders tonight's sky and a live solar system
+            view once an hour, forever — a GitHub Actions workflow computes real
+            positions for the sun, moon, and planets and commits the rendered SVGs
+            straight back into itself.
           </p>
 
-          <div class="project-wip-tag">IN DEVELOPMENT</div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/wip-icon.png" alt="Work In Progress Icon Preview">
-        </div>
-      </div>
-
-      <!-- PROJECT 4 — WIP -->
-      <div class="project-row wip">
-        <div class="project-info">
-          <h3 class="project-name">The Brick Archive</h3>
-          <p class="project-desc">
-            A full-stack archival tool designed to catalog and analyze the technical evolution of LEGO sets.
-          </p>
+          <div class="project-tags">
+            <span>JavaScript</span>
+            <span>Node.js</span>
+            <span>GitHub Actions</span>
+            <span>Astronomy Engine</span>
+          </div>
 
           <div class="project-wip-tag">IN DEVELOPMENT</div>
         </div>
@@ -168,76 +161,99 @@
       <h2 class="exp-title">FLIGHT RECORDS</h2>
       <div class="exp-divider"></div>
 
-      <!-- Incoming Experience -->
-<div class="experience-item incoming-experience">
-
-  <div class="exp-logo-box incoming-logo">
-    <img src="assets/companies/expedia-image.png" alt="Expedia Group" class="exp-logo">
-  </div>
-
-  <div class="exp-content">
-    <h3 class="exp-role incoming-role">
-      Incoming Cloud Engineering Intern
-    </h3>
-
-    <p class="exp-meta">
-      Expedia Group | San Jose, CA | Summer 2026
-    </p>
-    <p class="incoming-note">
-      Accepted offer. Excited to join the team and continue building scalable,
-      real-world systems in a production environment.
-    </p>
-  </div>
-
-</div>
+      <!-- CodePath — current term -->
       <div class="experience-item current-experience">
 
   <div class="exp-logo-box current-logo">
-    <img src="assets/companies/ncat-image.png" alt="NCAT State University" class="exp-logo">
+    <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
   </div>
 
   <div class="exp-content">
     <h3 class="exp-role current-role">
-      Current Undergraduate Research Assistant
+      Tech Fellow (Teaching Assistant) - Intro to Python
     </h3>
 
     <p class="current-meta">
-      X+ Intelligence Lab @ North Carolina A&T State University | Greensboro, NC | Spring 2026
+      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2026 - Present
     </p>
     <ul class="current-bullets">
-      <li>Training a PyTorch semantic segmentation model to detect and localize weeds in agricultural images using pixel accuracy and IoU metrics.</li>
-      <li>Building a custom data pipeline for image preprocessing, mask labeling, and train/validation evaluation.</li>
-      <li>Monitoring loss and performance trends to improve model generalization for autonomous farming applications.</li>
+      <li>Currently in progress — leading weekly labs and one-on-one debugging support for students learning Python fundamentals and algorithmic thinking.</li>
     </ul>
   </div>
 
 </div>
 
-      <!-- Tech Fellow / TA -->
+      <!-- Expedia Group -->
       <div class="experience-item">
-  <!-- Logo on the left -->
+
+  <div class="exp-logo-box">
+    <img src="assets/companies/expedia-image.png" alt="Expedia Group" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Cloud Engineering Intern
+    </h3>
+
+    <p class="exp-meta">
+      Expedia Group | San Jose, CA | May 2026 - August 2026
+    </p>
+    <ul class="exp-bullets">
+      <li>Built and deployed a production MCP server on Kubernetes exposing 5 custom observability tools over a 23.7 billion-row OTel ClickHouse dataset, enabling natural language querying of telemetry data.</li>
+      <li>Designed query guardrails blocking DDL/DML operations and multi-statement injection attempts, with automatic LIMIT injection and time-range enforcement to prevent unbounded queries against production data.</li>
+      <li>Built a K6 performance test framework across 6 load scenarios (baseline, spike, soak, multi-tool) with JWT bearer auth, sustaining 133 requests/sec at 230ms p95 latency with zero errors across all scenarios.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- Undergraduate Research Assistant — completed -->
+      <div class="experience-item">
+
+  <div class="exp-logo-box">
+    <img src="assets/companies/ncat-image.png" alt="NCAT State University" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Undergraduate Research Assistant
+    </h3>
+
+    <p class="exp-meta">
+      X+ Intelligence Lab @ North Carolina A&T State University | Greensboro, NC | Spring 2026
+    </p>
+    <ul class="exp-bullets">
+      <li>Trained a PyTorch semantic segmentation model to detect and localize weeds in agricultural images, evaluated using pixel accuracy and IoU metrics.</li>
+      <li>Built a custom data pipeline for image preprocessing, mask labeling, and train/validation evaluation.</li>
+      <li>Monitored loss and performance trends to improve model generalization for autonomous farming applications.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- CodePath — first term, completed -->
+      <div class="experience-item">
+
   <div class="exp-logo-box">
     <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
   </div>
 
-  <!-- Text column on the right -->
   <div class="exp-content">
     <h3 class="exp-role">
       Tech Fellow (Teaching Assistant) - Intro to Python
     </h3>
-    <p class="exp-meta">
-      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2025 - December 2025
-    </p>
 
+    <p class="exp-meta">
+      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2025 - Dec 2025
+    </p>
     <ul class="exp-bullets">
       <li>Led weekly labs and debugging sessions supporting students learning Python fundamentals and algorithmic thinking.</li>
       <li>Created hands-on examples, walkthroughs, and mini-lessons to guide students through loops, functions, dictionaries, and class structures.</li>
       <li>Provided one-on-one student support and contributed to improving learning outcomes across the course.</li>
     </ul>
   </div>
+
 </div>
-
-
 
       <!-- Cisco SWE Intern -->
       <div class="experience-item">
@@ -308,7 +324,7 @@
           </div>
 
           <div class="about-resume-wrap side-resume">
-            <a href="assets/main/Bryson_Wingate_Resume_Nov_2025.pdf"
+            <a href="assets/main/Bryson_Wingate_Resume.pdf"
                class="about-resume-btn"
                target="_blank">
               VIEW FULL RESUME
