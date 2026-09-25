@@ -349,6 +349,20 @@ body, html {
     justify-content: center;
 }
 
+@media (max-width: 900px) {
+    .about-flex {
+        flex-direction: column-reverse; /* photo + resume on top, text below */
+        gap: 28px;
+    }
+    .about-photo {
+        width: min(220px, 60vw);
+        height: min(220px, 60vw);
+    }
+    .about-text {
+        min-width: 0;
+    }
+}
+
 /* ===== ABOUT → SKILLS CAROUSEL ===== */
 .about-skills {
     margin-top: 40px;
